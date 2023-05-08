@@ -1,10 +1,10 @@
 <?php
 
     namespace App\Http;
+    
     use \Closure;
     use \Exception;
     use \ReflectionFunction;
-    use \App\Http\Middleware;
 
     class Router {
         private $url;
