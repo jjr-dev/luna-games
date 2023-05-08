@@ -53,7 +53,7 @@
                     $count ++;
                 }
             } else {
-                $similarGamesCards = "<div class='col' style='color: var(--color04)'>No games found</div>";
+                $similarGamesCards = Component::render('no-games-found');
             }
 
             $game['similar'] = $similarGamesCards;
