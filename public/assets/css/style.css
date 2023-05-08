@@ -1,0 +1,74 @@
+:root {
+	--color01: #16191c;
+	--color02: #212529;
+	--color03: #ffffff;
+	--color04: #adadad;
+}
+
+body {
+	max-width: 100%;
+	overflow-x: hidden;
+}
+
+body {
+	background-color: var(--color01);
+	color: var(--color03);
+	font-family: "Poppins", sans-serif;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
+.game-card,
+.game-screenshot {
+	transition: 0.2s;
+}
+
+.game-card:hover,
+.game-screenshot:hover {
+	transform: scale(1.05);
+}
+
+.game-cover,
+.game-screenshot img {
+	border-radius: 5px;
+}
+
+.game-requirements p,
+.game-company p {
+	margin: 0;
+	color: var(--color04);
+}
+
+.game-requirements p b,
+.game-company p b {
+	color: var(--color03);
+}
+
+.game-description {
+	color: var(--color04);
+}
+
+.game-left {
+	position: sticky;
+	top: 15px;
+}
+
+.view-more[href="#"] {
+	display: none;
+}
+
+footer {
+	background-color: var(--color02);
+}
+
+footer p {
+	color: var(--color04);
+}
+
+footer a {
+	text-decoration: underline;
+	color: var(--color03);
+}

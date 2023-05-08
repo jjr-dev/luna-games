@@ -1,0 +1,38 @@
+<div class="container">
+	<div class="row">
+		<div class="col-lg-4">
+			<div class="game-left">
+				<img src="{{thumbnail}}" class="game-cover" alt="{{title}}" />
+				{{requirements}}
+			</div>
+		</div>
+		<div class="col-lg-8">
+			<div>
+				<h1 class="d-inline me-2">{{title}}</h1>
+				<span class="badge bg-light text-dark">{{genre}}</span> {{platform}}
+			</div>
+			<div class="mt-3 game-company">
+				<div class="row">
+					<div class="col-lg">
+						<p><b>Platform:</b> {{platform}}</p>
+					</div>
+					<div class="col-lg">
+						<p><b>Publisher:</b> {{publisher}}</p>
+					</div>
+					<div class="col-lg">
+						<p><b>Release date:</b> {{release_date}}</p>
+					</div>
+				</div>
+			</div>
+			<hr />
+			<h3>About {{title}}</h3>
+			<p class="game-description">{{description}}</p>
+			<hr />
+			<h3>Screenshots</h3>
+			<div class="row">{{screenshots}}</div>
+			<hr />
+			<h3>Similar games</h3>
+			<div class="row">{{similar}}</div>
+		</div>
+	</div>
+</div>

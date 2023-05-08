@@ -1,24 +1,21 @@
 <?php
     namespace App\Utils;
 
-    class View {
+    use \App\Utils\View;
+
+    class Component {
         private static $vars = [];
-
-        public static function getInitVars() {
-            return self::$vars;
-        }
         
-        public static function init($vars = []) {
-            self::$vars = $vars;
-        }
-
-        private static function getContentView($view) {
-            $file = __DIR__ . '/../../resources/view/' . $view . '.html';
+        private static function getContentComponent($view) {
+            $file = __DIR__ . '/../../resources/components/' . $view . '.html';
             return file_exists($file) ? file_get_contents($file) : '';
         }
 
         public static function render($view, $vars = []) {
-            $contentView = self::getContentView($view);
+            if(empty(self::$vars))
+                self::$vars = View::getInitVars();
+
+            $contentView = self::getContentComponent($view);
 
             $vars = array_merge(self::$vars, $vars);
 
