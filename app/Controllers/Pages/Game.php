@@ -39,16 +39,21 @@
             ], 5);
 
             $similarGamesCards = "";
-            $count = 0;
-            foreach($similarGames as $key => $similarGame) {
-                if($similarGame['id'] === $game['id'] || $count >= 4)
-                    continue;
-                    
-                $similarGame['slug'] = Slugify::create($similarGame['title']);
-                $similarGameCard = Component::render('game-card', $similarGame);
-                $similarGamesCards .= $similarGameCard;
-
-                $count ++;
+            if(!isset($similarGames['status']) || $similarGames['status'] !== 0) {
+                $count = 0;
+                
+                foreach($similarGames as $key => $similarGame) {
+                    if($similarGame['id'] === $game['id'] || $count >= 4)
+                        continue;
+                        
+                    $similarGame['slug'] = Slugify::create($similarGame['title']);
+                    $similarGameCard = Component::render('game-card', $similarGame);
+                    $similarGamesCards .= $similarGameCard;
+    
+                    $count ++;
+                }
+            } else {
+                $similarGamesCards = "<div class='col' style='color: var(--color04)'>No games found</div>";
             }
 
             $game['similar'] = $similarGamesCards;

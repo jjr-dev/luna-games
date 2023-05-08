@@ -9,7 +9,7 @@
     ]);
 
     $router->get('/game/{id}/{slug?}', [
-        'cache' => 100000,
+        // 'cache' => 100000,
         function($request, $response) {
             return Pages\Game::getPage($request, $response);
         }
