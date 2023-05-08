@@ -14,8 +14,11 @@
                 "sort-by" => "popularity"
             ]);
 
+            if($games['count'] == 0 || !$games)
+                return $req->getRouter()->redirect('/');
+
             $gameCards = "";
-            foreach($games as $game) {
+            foreach($games['list'] as $game) {
                 $game['slug'] = Slugify::create($game['title']);
                 $gameCard = Component::render('game-card', $game);
                 $gameCards .= $gameCard;

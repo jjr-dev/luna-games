@@ -20,7 +20,12 @@
 
             curl_close($curl);
 
-            return json_decode($response, true);
+            $response = json_decode($response, true);
+
+            if($response['status_message'])
+                return false;
+
+            return $response; 
         }
 
         public function getGames($query = [], $limit = 12, $page = 1) {
@@ -28,11 +33,30 @@
 
             $games = $this->sendRequest($url);
 
-            return array_splice($games, ($page - 1) * $limit, $limit);
+            if(!$games)
+                return false;
+
+            $total = count($games);
+            $list  = array_splice($games, ($page - 1) * $limit, $limit);
+            $count = count($list);
+
+            return [
+                'list'  => $list,
+                'count' => $count,
+                'page'  => $page,
+                'pages' => intval(ceil($total / $limit)),
+                'limit' => $limit,
+                'total' => $total
+            ];
         }
 
         public function getGame($id) {
             $url = $this->url . '/game?id=' . $id;
-            return $this->sendRequest($url);
+            $game = $this->sendRequest($url);
+
+            if(!$game)
+                return false;
+
+            return $game;
         }
     }

@@ -84,7 +84,6 @@
             $uri = $this->request->getUri();
             $xUri = strlen($this->prefix) ? explode($this->prefix, $uri) : [$uri];
             $uri = end($xUri);
-            $uri = preg_split("/[?#]/", $uri)[0];
 
             return rtrim($uri, '/');
         }

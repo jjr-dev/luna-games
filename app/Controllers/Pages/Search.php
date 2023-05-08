@@ -9,7 +9,10 @@
     class Search extends Page {
         public static function getPage($req, $res) {
             $queryParams = $req->getQueryParams();
-            
+
+            if(!$queryParams["platform"] && !$queryParams["category"])
+                return $req->getRouter()->redirect('/');
+
             $gamesService = new GamesService();
 
             if($queryParams["platform"]) $query["platform"] = $queryParams["platform"];
@@ -22,25 +25,34 @@
 
             $games = $gamesService->getGames($query, $limit, $page);
 
+            if($games['count'] == 0 || !$games)
+                return $req->getRouter()->redirect('/');
+
             $gameCards = "";
-            foreach($games as $game) {
+            foreach($games['list'] as $game) {
                 $game['slug'] = Slugify::create($game['title']);
                 $gameCard = Component::render('game-card', $game);
                 $gameCards .= $gameCard;
             }
 
             $nextPage = '#';
-            if(count($games) >= $limit) {
+            if($games['page'] < $games['pages']) {
                 $uri = $req->getUri();
-                $uri = explode("&page=", $uri)[0];
-                $nextPage = $uri . '&page=' . ($page + 1);
+                $nextPage = $uri . '?' . http_build_query(array_merge($queryParams, ['page' => $page + 1]));
             }
-            
+
+            $previousPage = '#';
+            if($games['page'] > 1) {
+                $uri = $req->getUri();
+                $previousPage = $uri . '?' . http_build_query(array_merge($queryParams, ['page' => $page - 1]));
+            }
+
             $content = View::render('pages/search', [
                 'cards' => $gameCards,
                 'value' => $query["platform"] ? $query["platform"] : $query["category"],
                 'type' => $query["platform"] ? "Plataform" : "Category",
-                'nextpage' => $nextPage
+                'nextpage' => $nextPage,
+                'previouspage' => $previousPage
             ]);
 
             

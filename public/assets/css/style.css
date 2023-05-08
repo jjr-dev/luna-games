@@ -56,7 +56,8 @@ a {
 	top: 15px;
 }
 
-.view-more[href="#"] {
+.games-next-page[href="#"],
+.games-previous-page[href="#"] {
 	display: none;
 }
 

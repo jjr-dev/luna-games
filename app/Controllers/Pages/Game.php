@@ -39,10 +39,10 @@
             ], 5);
 
             $similarGamesCards = "";
-            if(!isset($similarGames['status']) || $similarGames['status'] !== 0) {
+            if($similarGames) {
                 $count = 0;
                 
-                foreach($similarGames as $key => $similarGame) {
+                foreach($similarGames['list'] as $key => $similarGame) {
                     if($similarGame['id'] === $game['id'] || $count >= 4)
                         continue;
                         
