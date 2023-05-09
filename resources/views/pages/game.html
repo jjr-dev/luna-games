@@ -2,16 +2,20 @@
 	<div class="row">
 		<div class="col-lg-4">
 			<div class="game-left">
-				<img src="{{thumbnail}}" class="game-cover rounded" alt="{{title}}" />
+				<img
+					src="{{thumbnail}}"
+					class="game-cover rounded w-100"
+					alt="{{title}}"
+				/>
 				{{requirements}}
 				<a href="{{game_url}}" target="_blank" class="d-block mt-3"
 					><button class="btn btn-light ps-4 pe-4">Access game</button></a
 				>
 			</div>
 		</div>
-		<div class="col-lg-8">
+		<div class="col-lg-8 mt-lg-0 mt-4">
 			<div>
-				<h1 class="d-inline me-2">{{title}}</h1>
+				<h1 class="d-block d-lg-inline me-2">{{title}}</h1>
 				<span class="badge bg-light text-dark">{{genre}}</span> {{platform}}
 			</div>
 			<div class="mt-3 game-company">

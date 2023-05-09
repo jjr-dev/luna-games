@@ -1,6 +1,7 @@
 <?php
     namespace App\Controllers\Pages;
 
+    use \App\Utils\Pagination;
     use \App\Utils\View;
     use \App\Utils\Component;
     use \App\Helpers\Slugify;
@@ -34,15 +35,13 @@
 
             $game['screenshots'] = $gameScreenshots;
 
-            $similarGames = $gamesService->getGames([
-                "category" => $game['genre']
-            ], 5);
+            $similarGames = $gamesService->getGames(["category" => $game['genre']]);
 
             $similarGamesCards = "";
             if($similarGames) {
                 $count = 0;
                 
-                foreach($similarGames['list'] as $key => $similarGame) {
+                foreach($similarGames as $key => $similarGame) {
                     if($similarGame['id'] === $game['id'] || $count >= 4)
                         continue;
                         

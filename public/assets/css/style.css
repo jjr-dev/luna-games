@@ -51,9 +51,35 @@ a {
 	top: 15px;
 }
 
-.games-next-page[href="#"],
-.games-previous-page[href="#"] {
-	display: none;
+.pagination > li > a {
+	background-color: var(--color02);
+	color: var(--color04);
+	border-color: var(--color02);
+}
+
+.pagination > li > a:focus,
+.pagination > li > a:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover {
+	color: var(--color03);
+	background-color: var(--color01);
+	border-color: var(--color02);
+}
+
+.pagination > .active > a {
+	color: var(--color02);
+	background-color: var(--color03) !important;
+	border-color: var(--color02);
+}
+
+.pagination > .disabled > a {
+	color: var(--color04);
+	background-color: var(--color01) !important;
+	border-color: var(--color02);
+}
+
+.pagination > .active > a:hover {
+	background-color: var(--color01) !important;
 }
 
 footer {
