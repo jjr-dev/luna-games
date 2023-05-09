@@ -28,34 +28,17 @@
             return $response; 
         }
 
-        public function getGames($query = [], $limit = 12, $page = 1) {
+        public function getGames($query = []) {
             $url = $this->url . '/games' . (empty($query) ? '' : '?' . http_build_query($query));
 
             $games = $this->sendRequest($url);
 
-            if(!$games)
-                return false;
-
-            $total = count($games);
-            $list  = array_splice($games, ($page - 1) * $limit, $limit);
-            $count = count($list);
-
-            return [
-                'list'  => $list,
-                'count' => $count,
-                'page'  => $page,
-                'pages' => intval(ceil($total / $limit)),
-                'limit' => $limit,
-                'total' => $total
-            ];
+            return $games;
         }
 
         public function getGame($id) {
             $url = $this->url . '/game?id=' . $id;
             $game = $this->sendRequest($url);
-
-            if(!$game)
-                return false;
 
             return $game;
         }

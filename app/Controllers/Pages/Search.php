@@ -1,6 +1,7 @@
 <?php
     namespace App\Controllers\Pages;
 
+    use \App\Utils\Pagination;
     use \App\Utils\View;
     use \App\Utils\Component;
     use \App\Helpers\Slugify;
@@ -17,46 +18,34 @@
 
             if($queryParams["platform"]) $query["platform"] = $queryParams["platform"];
             if($queryParams["category"]) $query["category"] = $queryParams["category"];
-            
+            $query["sort-by"] = "popularity";
+
+            $games = $gamesService->getGames($query);
+
             $page  = $queryParams["page"] ? $queryParams["page"] : 1;
             $limit = 20;
 
-            $query["sort-by"] = "popularity";
+            $pagination = new Pagination($games, $page, $limit);
+            $paginationRender = $pagination->render($req);
+            $games = $pagination->get()['list'];
 
-            $games = $gamesService->getGames($query, $limit, $page);
-
-            if($games['count'] == 0 || !$games)
+            if(!$games)
                 return $req->getRouter()->redirect('/');
 
             $gameCards = "";
-            foreach($games['list'] as $game) {
+            foreach($games as $game) {
                 $game['slug'] = Slugify::create($game['title']);
                 $gameCard = Component::render('game-card', $game);
                 $gameCards .= $gameCard;
             }
 
-            $nextPage = '#';
-            if($games['page'] < $games['pages']) {
-                $uri = $req->getUri();
-                $nextPage = $uri . '?' . http_build_query(array_merge($queryParams, ['page' => $page + 1]));
-            }
-
-            $previousPage = '#';
-            if($games['page'] > 1) {
-                $uri = $req->getUri();
-                $previousPage = $uri . '?' . http_build_query(array_merge($queryParams, ['page' => $page - 1]));
-            }
-
             $content = View::render('pages/search', [
-                'cards' => $gameCards,
-                'value' => $query["platform"] ? $query["platform"] : $query["category"],
-                'type' => $query["platform"] ? "Plataform" : "Category",
-                'nextpage' => $nextPage,
-                'previouspage' => $previousPage
+                'cards'      => $gameCards,
+                'value'      => $query["platform"] ? $query["platform"] : $query["category"],
+                'type'       => $query["platform"] ? "Plataform" : "Category",
+                'pagination' => $paginationRender
             ]);
 
-            
-            
             $content = parent::getPage("Luna Games - Search", $content);
             
             return $res->send(200, $content);
