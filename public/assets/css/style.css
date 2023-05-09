@@ -31,11 +31,6 @@ a {
 	transform: scale(1.05);
 }
 
-.game-cover,
-.game-screenshot img {
-	border-radius: 5px;
-}
-
 .game-requirements p,
 .game-company p {
 	margin: 0;
